@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Portal do Aluno</title>
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Configurações Globais e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Botão Voltar */
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #0284c7;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .btn-back:hover {
+            color: #0369a1;
+        }
+
+        /* Container Principal do Login */
+        .login-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
+            padding: 40px 30px;
+        }
+
+        /* Cabeçalho do Login */
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .login-header i {
+            font-size: 2.8rem;
+            color: #0284c7;
+            background-color: #e0f2fe;
+            padding: 18px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .login-header h1 {
+            color: #1e293b;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Inputs e Ícones Internos */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.input-icon {
+            position: absolute;
+            left: 15px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #1e293b;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+        }
+
+        /* Opções Extras */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            accent-color: #0284c7;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Botão de Enviar */
+        .btn-login {
+            width: 100%;
+            background-color: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+        }
+
+        .btn-login:hover {
+            background-color: #0369a1;
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        /* --- OVERLAY E PROGRESS BAR CIRCULAR --- */
+        .loading-overlay {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6); /* Fundo escurecido semi-transparente */
+            backdrop-filter: blur(4px); /* Efeito de desfoque profissional ao fundo */
+            z-index: 999; /* Garante que fica por cima de tudo */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .circular-progress {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #e2e8f0;
+            border-top: 5px solid #0284c7; /* A parte azul que gira */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Animação de rotação */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Link de Suporte */
+        .support-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .support-link a {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tela de Carregamento Circular (No meio da tela) -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="circular-progress"></div>
+        <div class="loading-text">Autenticando acesso...</div>
+    </div>
+
+    <!-- Botão para voltar à tela de seleção -->
+    <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+    </a>
+
+    <div class="login-container">
+        
+        <!-- Cabeçalho -->
+        <div class="login-header">
+            <i class="fa-solid fa-user-graduate"></i>
+            <h1>Portal do Aluno</h1>
+            <p>Insira suas credenciais para acessar</p>
+        </div>
+
+        <!-- Formulário de Login -->
+        <form id="loginForm" action="#" method="POST">
+            
+            <!-- Campo de Matrícula/Usuário -->
+            <div class="form-group">
+                <label for="matricula">RA ou Matrícula</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-id-card input-icon"></i>
+                    <input type="text" id="matricula" placeholder="Ex: 202612345" required>
+                </div>
+            </div>
+
+            <!-- Campo de Senha -->
+            <div class="form-group">
+                <label for="password">Sua Senha</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <!-- Opções de lembrar e recuperar -->
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Lembrar acesso
+                </label>
+                <a href="#recuperar-senha" class="forgot-password">Esqueceu a senha?</a>
+            </div>
+
+            <!-- Botão de Ação -->
+            <button type="submit" class="btn-login">Entrar no Portal</button>
+
+        </form>
+
+        <!-- Link de rodapé/ajuda -->
+        <div class="support-link">
+            Primeiro acesso? <a href="#primeiro-acesso">Ative sua conta aqui</a>
+        </div>
+
+    </div>
+
+    <!-- LOGIC INTERACTIVE (JAVASCRIPT) -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o recarregamento imediato da página
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+
+            // 1. Exibe o overlay com o progresso circular centralizado
+            loadingOverlay.style.display = 'flex';
+
+            // 2. Aguarda os 4 segundos (4000ms) e então redireciona para a página interna
+            setTimeout(() => {
+                window.location.href = 'portal-aluno.html';
+            }, 4000);
+        });
+    </script>
+
+</body>
+</html>

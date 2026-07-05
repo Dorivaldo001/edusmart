@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Acadêmico</title>
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Configurações Globais e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Container Principal */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        /* Cabeçalho / Logo */
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            color: #0284c7; /* Azul Principal */
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Menu de Opções (Botões) */
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .portal-card {
+            display: flex;
+            align-items: center;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        /* Ícones dos Portais */
+        .portal-card i {
+            font-size: 1.8rem;
+            color: #0284c7;
+            background-color: #e0f2fe;
+            padding: 15px;
+            border-radius: 12px;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Texto interno dos botões */
+        .portal-info {
+            text-align: left;
+        }
+
+        .portal-info h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .portal-info span {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Efeitos de Hover (Passar o mouse / Toque no celular) */
+        .portal-card:hover {
+            border-color: #0284c7;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.15);
+        }
+
+        .portal-card:hover i {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Topo da Tela -->
+        <div class="header">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <h1>Bem-vindo</h1>
+            <p>Selecione o seu portal de acesso</p>
+        </div>
+
+        <!-- Opções de Portais -->
+        <div class="menu-options">
+            
+            <!-- Opção Aluno (Ajustado o href para o arquivo de login do aluno) -->
+            <a href="login-aluno.html" class="portal-card">
+                <i class="fa-solid fa-user-graduate"></i>
+                <div class="portal-info">
+                    <h2>Portal do Aluno</h2>
+                    <span>Notas, frequência e materiais</span>
+                </div>
+            </a>
+
+            <!-- Opção Professor (Ajustado o href para o arquivo de login do professor) -->
+            <a href="login-professor.html" class="portal-card">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <div class="portal-info">
+                    <h2>Portal do Professor</h2>
+                    <span>Lançamentos e gestão de turmas</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Rodapé opcional -->
+        <div class="footer">
+            &copy; 2026 Sistema Escolar. Todos os direitos reservados.
+        </div>
+    </div>
+
+</body>
+</html>
